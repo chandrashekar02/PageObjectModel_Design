@@ -1,9 +1,6 @@
 package Polarian_TestData;
 
-import Polarion_Testdata.DocumentPage;
-import Polarion_Testdata.Polarion_LoginPage;
-import Polarion_Testdata.Polarion_SidebarPage;
-import Polarion_Testdata.Polarion_Signoff_Tasks;
+import Polarion_Testdata.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.slf4j.Logger;
@@ -16,42 +13,32 @@ public class Polarion_Main_SignOff_Task extends Polarion_SidebarPage {
         super(driver);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         WebDriver driver = new ChromeDriver();
         // driver.get("https://polarionqa.healthcare.siemens.com/polarion/#/project/Phase1_R10_Verification_Project1/wiki/CHANDRASHEKARLA/Product_Requirement_Specification_TemplatePRS");
         Polarion_Signoff_Tasks ps = new Polarion_Signoff_Tasks(driver);
         DocumentPage documentPage = new DocumentPage(driver);
+        WorkItem workItem = new WorkItem();
 
         myDocument();
         Polarion_LoginPage.login(getAuthorName());
-        documentPage.createDocument("Product Requirement Specification Template","PRS","chandrashekar");
-        ps.approvedStatus();
+      //  documentPage.createDocument("Product Requirement Specification Template","PRS","chandrashekar");
+       // ps.approvedStatus();
+        Thread.sleep(10000);
+        workItem.createWorkItems("Requirement", "Req_1144_1");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      /*  ps.performActionStartReview();
+/*
+        ps.performActionStartReview();
         logout();
         ps.reviewer_Sign();
         logout();
         ps.author_login();
         ps.performActionStartApproval();   //will change the status to "In Approval"
         logout();
-        ps.approver_Sign();
+      /*  ps.approver_Sign();
         logout();
         ps.author_Sign();
-        Thread.sleep(5000);
+        Thread.sleep(2000);
         driver.quit();
 */
     }

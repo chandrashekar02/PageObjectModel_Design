@@ -22,7 +22,7 @@ public class RandomString {
 
     public static String sapID() {
         stringGenerator();
-        int a = (int) (Math.random() * 100);
+        int a = (int) (Math.random() * 1000);
         stringBuilder.append("-");
         stringBuilder.append(a);
 

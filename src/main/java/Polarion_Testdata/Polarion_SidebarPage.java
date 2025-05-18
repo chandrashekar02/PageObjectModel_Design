@@ -33,6 +33,8 @@ public class Polarion_SidebarPage extends Polarion_LoginPage {
     private WebElement documentStatusField;
     @FindBy(xpath = "//td[contains(text(),'Perform action Start Review')]")
     private WebElement performActionStartReview;
+    @FindBy(xpath = "//td[contains(text(),'Perform action Incorporate Findings')]")
+    private WebElement performActionIncorporateFindings;
     @FindBy(xpath = "//td[contains(text(),'Perform action Start Approval')]")
     private WebElement performActionStartApproval;
     @FindBy(xpath = "//td[@id='FIELD_sh_documentReviewer']//table[@class='polarion-JSSelector-Combo']")
@@ -139,6 +141,20 @@ public class Polarion_SidebarPage extends Polarion_LoginPage {
         }
     }
 
+    public void performActionIncorporateFindings() {
+        DocumentPage documentPage = new DocumentPage(driver);
+        try {
+            //documentProperty_Sidebar();
+            documentPage.fillDocumentProperties_Sidebar();
+            wait.until(ExpectedConditions.elementToBeClickable(documentStatusField)).click();
+            wait.until(ExpectedConditions.elementToBeClickable(performActionIncorporateFindings)).click();
+            wait.until(ExpectedConditions.elementToBeClickable(saveButton)).click();
+            System.out.println("Document status is changed to 'Perform action Incorporate Findings'");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public String convertNames(String name) {
         String pName = null;
         try {
@@ -181,34 +197,42 @@ public class Polarion_SidebarPage extends Polarion_LoginPage {
     }
 
     public void approver() {
-        String approverName = Polarion_PropertiesReader.readKey(getApproverName());
-        approverField.click();
-        wait.until(ExpectedConditions.elementToBeClickable(roleInputField));
-        roleInputField.sendKeys(approverName);
-        List<WebElement> approverList = driver.findElements(approverList_Locator);
-        for (WebElement approver : approverList) {
-            if (approver.getText().equalsIgnoreCase(approverName)) {
-                approver.click();
-                break;
+        try {
+            String approverName = Polarion_PropertiesReader.readKey(getApproverName());
+            approverField.click();
+            wait.until(ExpectedConditions.elementToBeClickable(roleInputField));
+            roleInputField.sendKeys(approverName);
+            List<WebElement> approverList = driver.findElements(approverList_Locator);
+            for (WebElement approver : approverList) {
+                if (approver.getText().equalsIgnoreCase(approverName)) {
+                    approver.click();
+                    break;
+                }
             }
+        } catch (Exception e) {
+            System.out.println("Approver not found..\t"+e.getMessage());
         }
     }
 
     public void approver(String secondApproverName) {
         approver();
-        String approverName = convertNames(secondApproverName);
-        driver.findElement(addApprover_Locator).click();
-        driver.findElement(By.xpath("//td[@id='LABEL_sh_documentReviewer']")).click();
-        approverField.click();
-        wait.until(ExpectedConditions.elementToBeClickable(roleInputField));
-        roleInputField.sendKeys(approverName);
-        List<WebElement> approverList = driver.findElements(approverList_Locator);
-        for (WebElement approver : approverList) {
-            if (approver.getText().equalsIgnoreCase(approverName)) {
-                approver.click();
-                break;
+        try {
+            String approverName = convertNames(secondApproverName);
+            driver.findElement(addApprover_Locator).click();
+            driver.findElement(By.xpath("//td[@id='LABEL_sh_documentReviewer']")).click();
+            approverField.click();
+            wait.until(ExpectedConditions.elementToBeClickable(roleInputField));
+            roleInputField.sendKeys(approverName);
+            List<WebElement> approverList = driver.findElements(approverList_Locator);
+            for (WebElement approver : approverList) {
+                if (approver.getText().equalsIgnoreCase(approverName)) {
+                    approver.click();
+                    break;
+                }
             }
-        }
+        } catch (Exception e) {
+        System.out.println("Approver not found..\t"+e.getMessage());
+    }
     }
 
     public void confidentiality(){
@@ -226,14 +250,6 @@ public class Polarion_SidebarPage extends Polarion_LoginPage {
 
     public void documentTypeField(String name) {
         wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(documentTypeField_Locator))).click();
-       /* Actions actions = new Actions(driver);
-        actions.moveToElement(driver.findElement(By.xpath("//div[@class='polarion-JComboBox-ItemsOverFlowArea']")));
-        Random random = new Random();
-        int a = random.nextInt(17) + 1; // 1 to 17
-        WebElement docType = driver.findElement(By.xpath("//table[@class='polarion-JComboBox-ItemsTable']//tr[" + a + "]//td[2]"));
-        String docTypeName = docType.getText();
-
-        */
         wait.until(ExpectedConditions.elementToBeClickable(roleInputField)).sendKeys(name);
         driver.findElement(documentPropertiesHead_Locator).click();
     }
