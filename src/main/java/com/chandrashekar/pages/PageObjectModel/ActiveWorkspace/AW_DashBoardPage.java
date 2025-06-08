@@ -1,21 +1,22 @@
 package com.chandrashekar.pages.PageObjectModel.ActiveWorkspace;
 
-import com.chandrashekar.base.AW_Base;
+import com.chandrashekar.base.BaseClass;
 import com.chandrashekar.utils.WaitStatements;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
 import static org.openqa.selenium.support.locators.RelativeLocator.with;
 
-public class AW_DashBoardPage extends AW_Base {
+public class AW_DashBoardPage extends BaseClass {
 
     public AW_DashBoardPage(WebDriver driver) {
         super(driver);
-        this.driver = driver;
     }
 
     //class variables
@@ -64,6 +65,14 @@ public class AW_DashBoardPage extends AW_Base {
         currentGroupText = groupElement.getText();
     }
 
+    private void currentRole() {
+        profile();
+        WebElement roleText = driver.findElement(roleText_Locator);
+        WaitStatements.checkClickable(driver, 5,roleText_Locator);
+        roleElement = driver.findElement(with(By.tagName("a")).below(roleText));
+        currentRoleText = roleElement.getText();
+    }
+
     public void changeGroupAndRole(String expectedGroup, String expectedRole) throws InterruptedException {                  //need to pass the expected group name
         currentGroup();
 
@@ -87,13 +96,7 @@ public class AW_DashBoardPage extends AW_Base {
         roleChange(expectedRole);
     }
 
-    private void currentRole() {
-        profile();
-        WaitStatements.checkVisibility(driver, roleText_Locator, 5);
-        WebElement roleText = driver.findElement(roleText_Locator);
-        roleElement = driver.findElement(with(By.tagName("a")).below(roleText));
-        currentRoleText = roleElement.getText();
-    }
+
 
     private void roleChange(String expectedRole) throws InterruptedException {                  //need to pass the expected group name
         currentRole();
@@ -131,10 +134,11 @@ public class AW_DashBoardPage extends AW_Base {
         }
     }
 
-    public void homePage() {
+    public AW_HomePage homePage() {
         driver.findElement(newPartTile_Locator).click();
         WebElement close = driver.findElement(By.xpath("//button[@command-id='Awp0CloseCommandPanel']"));
         close.click();
+        return new AW_HomePage(driver);
     }
 
 
@@ -146,17 +150,19 @@ public class AW_DashBoardPage extends AW_Base {
 
 /*
 //For trying purpose only
-    WebDriver driver;
+   // WebDriver driver;
 
     public static void main(String[] args) throws InterruptedException {
         WebDriver driver = new ChromeDriver();
-        AW_AdvancedSearchPage obj = new AW_AdvancedSearchPage(driver);
+        driver.get("https://teamcenter.ad005.onehc.net:10231/");
+       // AW_AdvancedSearchPage obj = new AW_AdvancedSearchPage(driver);
 
-        obj.groupChange("SCM.FOR.CT.Healthcare", "Engineer");
+        AW_DashBoardPage obj1 = new AW_DashBoardPage(driver);
+        obj1.changeGroupAndRole("SCM.FOR.CT.Healthcare", "Engineer");
 
-        obj.searchAW();
+       // obj1.searchAW();
 
-        obj.selectingFolder(97014);
+       // obj1.selectingFolder(97014);
     }
 */
 

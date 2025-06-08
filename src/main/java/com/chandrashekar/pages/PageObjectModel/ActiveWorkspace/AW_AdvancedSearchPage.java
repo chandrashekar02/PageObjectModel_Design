@@ -25,7 +25,7 @@ public class AW_AdvancedSearchPage extends AW_DashBoardPage {
     private final By openIcon = By.xpath("//button[@button-id='Awp0ShowObjectCell']");
     private final By advanceSearch_MoreCommands_Locator = By.xpath("//button[@class='aw-commands-commandToolbarIconButton ']");
     private final By advanceSearchTile_locator = By.xpath("//div[@data-locator='tile-container-Awp0AdvancedSearchTile']");
-
+    private final By adanceQueryName_locator = By.xpath("//input[@aria-label='Advanced Query Name']");
     /*
     From the 'Search' input 'Advanced Search' is opened.
     'advanceQuery' will be clicked and take the input to search value from the list.
@@ -38,7 +38,9 @@ public class AW_AdvancedSearchPage extends AW_DashBoardPage {
         // WebElement advanceQuery = driver.findElement(advanceQuery_Locator);
         WebElement advanceQuery = driver.findElement(advanceSearchTile_locator);
         advanceQuery.click();
-        advanceQuery.sendKeys(searchValue);
+        WebElement advanceQueryName = driver.findElement(adanceQueryName_locator);
+        advanceQueryName.click();
+        WaitStatements.checkClickable(driver,5,advanceQueryList_locator);
 
         List<WebElement> advanceQueryList = driver.findElements(advanceQueryList_locator);
         for (WebElement adanceQueryValue : advanceQueryList) {
@@ -63,7 +65,9 @@ public class AW_AdvancedSearchPage extends AW_DashBoardPage {
         driver.findElement(searchButton_Locator).click();
     }
 
-    public void selectingFolder(int testcaseID) {
+
+    //It will accept the testcase number and return the TestData objectsList.
+    public TestData testData_Folder(int testcaseID) {
         findFolder(testcaseID);
         try {
             WaitStatements.checkClickable(driver, 5, openIcon);
@@ -72,6 +76,9 @@ public class AW_AdvancedSearchPage extends AW_DashBoardPage {
         } catch (Exception e) {
             System.out.println("Folder not found");
         }
+        return  new TestData(driver);
+
+
         //Need to change this to check the date which is the latest one.
         /*
         List<WebElement> folderList = driver.findElements(folderList_Locator);

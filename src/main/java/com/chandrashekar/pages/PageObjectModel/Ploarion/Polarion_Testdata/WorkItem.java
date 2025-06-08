@@ -1,12 +1,10 @@
-package Polarion_Testdata;
+package com.chandrashekar.pages.PageObjectModel.Ploarion.Polarion_Testdata;
 
-import Polarion_Testdata.Utils.WaitStatements;
+import com.chandrashekar.pages.PageObjectModel.Ploarion.Polarion_Testdata.Utils.WaitStatements;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.security.Key;
 import java.util.List;
 import java.util.Scanner;
 
@@ -54,6 +52,8 @@ public class WorkItem extends DocumentPage{
     }
 
     public void switchFrameToDocumentBody(){
+        WaitStatements.checkVisibility(driver, documentIframe_Locator,10);
+        System.out.println(driver.getCurrentUrl());
         driver.switchTo().frame(driver.findElement(documentIframe_Locator));
     }
 
@@ -132,8 +132,7 @@ public class WorkItem extends DocumentPage{
     public void workItemNameAndDescription(String workItemName, int numberOfWorkItems){
         switchFrameToDocumentBody();
         for(int j=1; j<=numberOfWorkItems; j++) {
-            By workItemName_Locator = By.xpath("//span[@class='polarion-dle-workitem-title']//span[@title="+"'"+numberOfWorkItems+"'"+"]");
-
+            By workItemName_Locator = By.xpath("//span[@class='polarion-dle-workitem-title']//span[@title="+"'"+j+"'"+"]");
             WaitStatements.checkClickable(driver, 2, driver.findElement(workItemName_Locator));
             WebElement workItemTitle = driver.findElement(workItemName_Locator);
             workItemTitle.click();
@@ -141,7 +140,12 @@ public class WorkItem extends DocumentPage{
             workItemTitle.sendKeys(workItemName + "_" + j);
             workItemTitle.sendKeys(Keys.ENTER);
             workItemTitle.sendKeys(workItemName + "_" + j);
-            workItemTitle.sendKeys(Keys.ENTER);
+            if(j==numberOfWorkItems){
+                break;
+            }else {
+                workItemTitle.sendKeys(Keys.ENTER);
+            }
+
         }
     }
 

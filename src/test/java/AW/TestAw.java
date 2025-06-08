@@ -46,7 +46,7 @@ public class TestAw {
     @Description("Verify that able to load the test data")
     public void testDataLoad(){
         AW_AdvancedSearchPage search = new AW_AdvancedSearchPage(driver);
-        search.selectingFolder(testcaseID);
+        search.testData_Folder(testcaseID);
     }
 
 }

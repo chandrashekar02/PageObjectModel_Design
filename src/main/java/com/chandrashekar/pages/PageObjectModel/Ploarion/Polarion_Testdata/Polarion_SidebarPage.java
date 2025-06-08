@@ -1,16 +1,13 @@
-package Polarion_Testdata;
+package com.chandrashekar.pages.PageObjectModel.Ploarion.Polarion_Testdata;
 
-import Polarion_Testdata.Utils.Polarion_PropertiesReader;
+import com.chandrashekar.pages.PageObjectModel.Ploarion.Polarion_Testdata.Utils.Polarion_PropertiesReader;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import javax.xml.xpath.XPath;
 import java.util.List;
-import java.util.Random;
 
 public class Polarion_SidebarPage extends Polarion_LoginPage {
 
@@ -132,6 +129,20 @@ public class Polarion_SidebarPage extends Polarion_LoginPage {
         try {
             //documentProperty_Sidebar();
             documentPage.fillDocumentProperties_Sidebar();
+            wait.until(ExpectedConditions.elementToBeClickable(documentStatusField)).click();
+            wait.until(ExpectedConditions.elementToBeClickable(performActionStartReview)).click();
+            wait.until(ExpectedConditions.elementToBeClickable(saveButton)).click();
+            System.out.println("Document status is changed to 'performActionStartReview'");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void performActionStartReview(String secondReviewer, String secondApprover) {
+        DocumentPage documentPage = new DocumentPage(driver);
+        try {
+            //documentProperty_Sidebar();
+            documentPage.fillDocumentProperties_Sidebar(secondReviewer, secondApprover);
             wait.until(ExpectedConditions.elementToBeClickable(documentStatusField)).click();
             wait.until(ExpectedConditions.elementToBeClickable(performActionStartReview)).click();
             wait.until(ExpectedConditions.elementToBeClickable(saveButton)).click();

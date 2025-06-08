@@ -13,30 +13,27 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import static com.chandrashekar.utils.PropertiesReader.readKey;
-
 public class CreateRequirementObject_87733 {
 
-    WebDriver driver;
+    private WebDriver driver;
+    AW_DashBoardPage aw_dashBoardPage;
     AW_HomePage aw_homePage;
     AW_ItemOpenPage awItemOpenPage;
 
     //Resources
-    String URL_Int1 = "https://teamcenter.ad005.onehc.net:10231/";
-    String URL_QA = "https://teamcenter.ad005.onehc.net:10231/";
-    String authorGroup = "Systems_Engineering.ERL.CV.Healthcare";
-    String authorRole = "Design_Input_Engineer";
-    String objectName = "User Need Specification";
-    String childObjectName = "User Need Paragraph";
-    String subChildObjectName = "User Need";
-    String FolderName = "87733_AW";
+    private String URL_AW = PropertiesReader.readKey("URL_AW_INT2");     //"https://teamcenter.ad005.onehc.net:10231/";
+    private String authorGroup = PropertiesReader.readKey("TC.87733.authorGroup");
+    private String authorRole = PropertiesReader.readKey("TC.87733.authorRole");
+    private String objectName = PropertiesReader.readKey("TC.87733.objectName");
+    private String childObjectName = PropertiesReader.readKey("TC.87733.childObjectName");
+    private String subChildObjectName = PropertiesReader.readKey("TC.87733.subChildObjectName");
+    private String FolderName = PropertiesReader.readKey("TC.87733.FolderName");
 
 
     @BeforeTest
     public void setup() {
         driver = new ChromeDriver();
-        //driver.get(PropertiesReader.readKey("URL_AW_INT1"));
-        driver.get(URL_Int1);
+        driver.get(URL_AW);
 
     }
 
@@ -53,9 +50,9 @@ public class CreateRequirementObject_87733 {
 
     @Test(priority = 2)
     @Description("Verify that able to create a folder")
-    public void test_FolderCreation() throws InterruptedException {
-        aw_homePage = new AW_HomePage(driver);
-        aw_homePage.homePage();
+    public void test_FolderCreation()  {
+        aw_dashBoardPage = new AW_DashBoardPage(driver);
+        aw_homePage = aw_dashBoardPage.homePage();
         aw_homePage.create_NewFolder(FolderName);
         Assert.assertEquals(AW_PopupNotification.popupMessage(driver), '"' + FolderName + '"' + " was added.");
     }
@@ -63,9 +60,8 @@ public class CreateRequirementObject_87733 {
     @Test(priority = 3)
     @Description("Verify that the User Need Specification is cerated")
     public void test_RequiredObjectCreation() throws InterruptedException {
-        aw_homePage = new AW_HomePage(driver);
         aw_homePage.create_NewItem(objectName);
-        AW_HomePage.openObject();
+        aw_homePage.openObject();
     }
 
     @Test(priority = 4)
@@ -75,7 +71,7 @@ public class CreateRequirementObject_87733 {
         awItemOpenPage.child_add_TopControlMenu(childObjectName);
 
         String actualText = AW_PopupNotification.popupMessage(driver);
-        Assert.assertTrue(actualText.contains(childObjectName) && actualText.contains(objectName), "Popup message should contain 'child' added to 'parent' item"+ actualText);
+        Assert.assertTrue(actualText.contains(childObjectName) && actualText.contains(objectName), "Popup message should contain 'child' added to 'parent' item" + actualText);
     }
 
     @Test(priority = 5)
@@ -85,12 +81,12 @@ public class CreateRequirementObject_87733 {
         awItemOpenPage.child_add_TopControlMenu(subChildObjectName);
 
         String actualText = AW_PopupNotification.popupMessage(driver);
-        Assert.assertTrue(actualText.contains(subChildObjectName) && actualText.contains(childObjectName), "Popup message should contain 'Sub child' added to 'child' item"+ actualText);
+        Assert.assertTrue(actualText.contains(subChildObjectName) && actualText.contains(childObjectName), "Popup message should contain 'Sub child' added to 'child' item" + actualText);
     }
 
     @AfterTest
-    public void tearDown(){
-        driver.quit();
+    public void tearDown() {
+         driver.quit();
     }
 
 }

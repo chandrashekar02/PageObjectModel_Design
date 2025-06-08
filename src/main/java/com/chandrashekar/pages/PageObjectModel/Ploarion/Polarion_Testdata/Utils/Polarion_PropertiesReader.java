@@ -1,9 +1,7 @@
-package Polarion_Testdata.Utils;
+package com.chandrashekar.pages.PageObjectModel.Ploarion.Polarion_Testdata.Utils;
 
 import java.io.FileInputStream;
 import java.util.Properties;
-
-import static Polarion_Testdata.Polarion_LoginPage.getReviewerName;
 
 public class Polarion_PropertiesReader {
 

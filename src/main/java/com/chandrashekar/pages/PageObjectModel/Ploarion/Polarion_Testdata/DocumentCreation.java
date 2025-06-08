@@ -1,17 +1,13 @@
-package Polarion_Testdata;
+package com.chandrashekar.pages.PageObjectModel.Ploarion.Polarion_Testdata;
 
 import com.chandrashekar.utils.WaitStatements;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 import java.util.Set;
-
-import static Polarion_Testdata.Polarion_LoginPage.login;
 
 public class DocumentCreation extends Polarion_SidebarPage {
     public DocumentCreation(WebDriver driver) {
@@ -77,17 +73,19 @@ public class DocumentCreation extends Polarion_SidebarPage {
                 driver.findElement(createButton_Locator).click();
                 break;
             }
-
         }
         switchWindow();
     }
 
     public static void switchWindow() {
-        String parentWindow = driver.getWindowHandle();
-        Set<String> windows = driver.getWindowHandles();
+        String parentWindow = driver.getWindowHandle();   //Parent window
+        Set<String> windows = driver.getWindowHandles();  //List of all windows
         for (String window : windows) {
             if (!window.equals(parentWindow)) {
                 driver.switchTo().window(window);
+                System.out.println(driver.getCurrentUrl());
+                System.out.println(driver.getTitle());
+                break;
             }
         }
     }

@@ -121,7 +121,8 @@ public class WaitStatements {
         wait.until(ExpectedConditions.refreshed(ExpectedConditions.elementToBeClickable(element)));
     }
 
-    public static void refreshElement(By Locator) {
+    public static void refreshElement(WebDriver drive, By Locator) {
+        WaitStatements.driver = drive;
         wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         wait.until(ExpectedConditions.refreshed(ExpectedConditions.elementToBeClickable(Locator)));
     }

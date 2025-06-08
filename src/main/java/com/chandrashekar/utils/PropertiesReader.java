@@ -19,7 +19,28 @@ public class PropertiesReader {
         return p.getProperty(key);
     }
 
+
+    public static String readData(int testcaseNumber, String name) {
+        Properties p = null;
+        try {
+            FileInputStream fileInputStream = new FileInputStream(System.getProperty("user.dir") + "\\src\\main\\resources\\AW.properties");
+            p = new Properties();
+            p.load(fileInputStream);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        String prefix = "TC." + testcaseNumber + ".";
+
+        assert p != null;
+        return p.getProperty(prefix + name);
+    }
+
+
     public static void main(String[] args) {
-        System.out.println(PropertiesReader.readKey("URL_AW_INT1"));
+          int TestcaseID = 87680;
+        System.out.println(PropertiesReader.readData(TestcaseID,"authorGroup"));
+
     }
 }
+

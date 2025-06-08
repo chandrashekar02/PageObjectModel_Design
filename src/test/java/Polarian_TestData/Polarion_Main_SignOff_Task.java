@@ -1,6 +1,6 @@
 package Polarian_TestData;
 
-import Polarion_Testdata.*;
+import com.chandrashekar.pages.PageObjectModel.Ploarion.Polarion_Testdata.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.slf4j.Logger;
@@ -22,12 +22,12 @@ public class Polarion_Main_SignOff_Task extends Polarion_SidebarPage {
 
         myDocument();
         Polarion_LoginPage.login(getAuthorName());
-      //  documentPage.createDocument("Product Requirement Specification Template","PRS","chandrashekar");
+      //  documentPage.createDocument("Product Requirement Specification Template","PRS_13085","chandrashekar");
        // ps.approvedStatus();
-        Thread.sleep(10000);
-        workItem.createWorkItems("Requirement", "Req_1144_1");
+        //Thread.sleep(10000);
+       // workItem.createWorkItems("Test Case", "TC_14633");
 
-/*
+
         ps.performActionStartReview();
         logout();
         ps.reviewer_Sign();
@@ -35,7 +35,7 @@ public class Polarion_Main_SignOff_Task extends Polarion_SidebarPage {
         ps.author_login();
         ps.performActionStartApproval();   //will change the status to "In Approval"
         logout();
-      /*  ps.approver_Sign();
+       /* ps.approver_Sign();
         logout();
         ps.author_Sign();
         Thread.sleep(2000);

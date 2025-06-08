@@ -1,14 +1,11 @@
-package Polarion_Testdata;
+package com.chandrashekar.pages.PageObjectModel.Ploarion.Polarion_Testdata;
 
-import com.chandrashekar.utils.WaitStatements;
 import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Polarion_LoginPage extends Polarian_Base {

@@ -1,6 +1,6 @@
 package com.chandrashekar.utils;
 
-import com.chandrashekar.base.AW_Base;
+import com.chandrashekar.base.BaseClass;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 

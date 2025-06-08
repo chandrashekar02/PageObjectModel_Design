@@ -1,13 +1,8 @@
-package Polarion_Testdata;
+package com.chandrashekar.pages.PageObjectModel.Ploarion.Polarion_Testdata;
 
-import Polarion_Testdata.Utils.RandomString;
+import com.chandrashekar.pages.PageObjectModel.Ploarion.Polarion_Testdata.Utils.RandomString;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.locators.RelativeLocator;
-
-import java.security.Key;
 
 public class DocumentPage extends DocumentCreation {
 

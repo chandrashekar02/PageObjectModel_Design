@@ -1,4 +1,4 @@
-package Polarion_Testdata.Utils;
+package com.chandrashekar.pages.PageObjectModel.Ploarion.Polarion_Testdata.Utils;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
